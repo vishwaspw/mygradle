@@ -1,10 +1,11 @@
 pipeline {
-    agent any  // Use any available agent
+    agent any
 
     tools {
-        gradle 'Gradle'  // Ensure this matches the name configured in Jenkins
+        gradle 'VishwasGradle'
         jdk 'JDK'
     }
+
     stages {
         stage('Checkout') {
             steps {
@@ -14,25 +15,21 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'gradle build'  // Run Maven build
+                sh './gradlew build'  // Run Gradle build
             }
         }
 
-       stage('Test') {
-           steps {
-               sh 'gradle test'  // Run unit tests
-           }
+        stage('Test') {
+            steps {
+                sh './gradlew test'  // Run unit tests
+            }
         }
 
-              
         stage('Run Application') {
             steps {
-                // Start the JAR application
-                sh 'gradle run'
+                sh './gradlew run'  // Start the application
             }
         }
-
-        
     }
 
     post {
@@ -44,3 +41,4 @@ pipeline {
         }
     }
 }
+
